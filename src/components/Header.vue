@@ -2,7 +2,6 @@
         <div>
             <ul>
                 <li><a href="#">Github Profile Finder</a></li>
-                <li>Theme Switch</li>
             </ul>
         </div>
 </template>
@@ -29,6 +28,7 @@ export default{
 
     li a {
         text-decoration:  none;
-        font-size: 1.5em
+        font-size: 1.5em;
+        color: #fff;
     }
 </style>
