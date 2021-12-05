@@ -1,15 +1,44 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Header />
+  <FormSearch @getGithubUser="registerUser($event)" />
+  <CardBody />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import FormSearch from '@/components/FormSearch'
+import Header from '@/components/Header'
+import CardBody from '@/components/CardBody'
+
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header,
+    FormSearch,
+    CardBody
+  },
+  data() {
+     return {
+     githubUser: {},
+     searchedProfile: ''
+   }
+  },
+  methods: {
+    async githubApi() {
+      const response = await fetch('https://api.github.com/users/octocat')
+      const data = await response.json()
+      return data
+    },
+    registerUser(searchedProfile) {
+      this.searchedProfile = searchedProfile
+      // console.log(searchedProfile)
+    }
+  },
+  async created() {
+    const data = await this.githubApi()
+    console.log(data)
+    this.githubUser = data
   }
 }
 </script>
@@ -17,10 +46,10 @@ export default {
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  width: 50%;
+  min-width: 400px;
+  color: #000;
+  margin: auto;
+  padding: 50px 0
 }
 </style>
