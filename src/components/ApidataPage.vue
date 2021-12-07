@@ -150,7 +150,7 @@ export default {
     display:flex;
     flex-direction:row;
     border: none;
-    background: #334155;
+    background: #1E293B;
     border-radius: 10px;
     padding:5px;
 }
@@ -160,7 +160,7 @@ input {
   flex-grow:2;
   /* And hide the input's outline, so the form looks like the outline */
   border:none;
-  background: #334155;
+  background: #1E293B;
   color: #fff;
   font-size: 1.2em;
 }
