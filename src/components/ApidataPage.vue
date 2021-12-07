@@ -198,7 +198,7 @@ button:focus {
 /*  */
 
 .card-body {
-    background: #334155;
+    background:  #1E293B;
     border-radius: 10px;
     margin-top: 10px;
     padding: 10px 10px;
@@ -247,7 +247,7 @@ img {
 .stats-box {
     display: flex;
     justify-content:space-around;
-    background: #1E293B;
+    background: #0F172A;
     border-radius: 10px;
     color: #fff;
     font-weight: bold;
