@@ -2,115 +2,115 @@
   <div>
     <div class="input-container">
         <i class="fas fa-search"></i>
-        <input type="text" v-model='searchprofile' v-bind:placeholder="placeholder">
-        <button @click="githubApi()">Search</button>
+        <input type="text" v-model='searchprofile' v-bind:placeholder="placeholder" autofocus>
+        <button @click="checkEmptyField()">Search</button>
     </div>
-
-    <main v-if="!loading">
-          <div class="card-body">
-        <div class="gh-img-name-username">
-            <img :src="githubUser.avatar_url" alt="gh-avatar">
-            <div class="name-date-container">
-                <div class="name-username">
-                    <p class="gh-name">{{ githubUser.name }}</p>
-                    <p style="color:#0061FF" class="gh-username">{{ githubUser.login }}</p>
-                </div>
-                <p v-bind:style="{ color: greyColor}">Joined <span class="joined-date"> {{ timeStamp  }} </span></p>
-            </div>
-            
-        </div>
-
-        <div class="stats-links-container">
-                <div class="profile-bio-stats">
-                    <h3>Bio:</h3>
-                    <div v-if="githubUser.bio" v-bind:style="{ color: greyColor}">
-                        <p class="bio">
-                             {{ githubUser.bio }}
-                         </p>
-                    </div>
-                    <div v-else>
-                        <p class="bio">
-                             {{ error }}
-                         </p>
+     <div v-if="errorResponse">
+                {{ errorResponse }}
+    </div>
+    <main v-else v-show="showUI">
+           
+           <div>
+                 <div class="card-body">
+                <div class="gh-img-name-username">
+                    <img :src="githubUser.avatar_url" alt="gh-avatar">
+                    <div class="name-date-container">
+                        <div class="name-username">
+                            <p class="gh-name">{{ githubUser.name }}</p>
+                            <p style="color:#0061FF" class="gh-username">{{ githubUser.login }}</p>
+                        </div>
+                        <p v-bind:style="{ color: greyColor}">Joined <span class="joined-date"> {{ timeStamp  }} </span></p>
                     </div>
                     
-                    <div class="stats-box">
-                        <!-- Repos -->
-                        <div class="repos">
-                            <p class="gh-repos">Repos</p>
-                            <p class=" profile-numbers">{{ githubUser.public_repos }}</p>
-                        </div>
-
-                        <!-- Followers -->
-                        <div class="followers">
-                            <p class="gh-followers">Followers</p>
-                            <p class="profile-numbers">{{ githubUser.followers }}</p>
-                        </div>
-
-                        <!-- Following -->
-                        <div class="following">
-                            <p class="gh-following">Following</p>
-                            <p class="profile-numbers">{{ githubUser.following }}</p>
-                        </div>
-                    </div>
-                    </div>
-
-                <!-- Profile Links -->
-                <div class="gh-links">
-                    <ul> 
-                        <div  v-bind:style="{ color: greyColor}">
-                            <div v-if="githubUser.location">
-                                  <i class="fas fa-map-marker-alt"></i>
-                                  <li>{{ githubUser.location }} </li>
-                            </div>
-                            <div v-else>
-                                <i class="fas fa-map-marker-alt"></i>
-                                  <li>{{ error }} </li>
-                            </div>
-                        </div> 
-                        <div  v-bind:style="{ color: greyColor}">
-                            <div v-if="githubUser.twitter_username">
-                                  <i class="fab fa-twitter"></i>
-                                  <li>@{{ githubUser.twitter_username }}</li>
-                            </div>
-                            <div v-else>
-                                <i class="fab fa-twitter"></i>
-                                  <li>{{ error }} </li>
-                            </div>
-                        </div> 
-
-                        <div  v-bind:style="{ color: greyColor}">
-                            <div v-if="githubUser.blog">
-                                   <i class="fas fa-link"></i>
-                                  <li><a :href="githubUser.blog">{{ githubUser.blog }}</a></li>
-                            </div>
-                            <div v-else>
-                              <i class="fas fa-link"></i>
-                                  <li>{{ error }} </li>
-                            </div>
-                        </div> 
-
-                         <div  v-bind:style="{ color: greyColor}">
-                            <div v-if="githubUser.html_url">
-                                   <i class="fas fa-building"></i>
-                                    <li><a :href="githubUser.html_url"> {{ githubUser.html_url }}</a></li>
-                            </div>
-                            <div v-else>
-                               <i class="fas fa-building"></i>
-                                    <li>{{ error }} </li>
-                            </div>
-                        </div> 
-                    </ul>
                 </div>
-        </div>
-     </div>
-    </main>
-    <main class="loader-container" v-else>
-        <img :src="loadingImage" alt="">
+
+                <div class="stats-links-container">
+                        <div class="profile-bio-stats">
+                            <h3>Bio:</h3>
+                            <div v-if="githubUser.bio" v-bind:style="{ color: greyColor}">
+                                <p class="bio">
+                                    {{ githubUser.bio }}
+                                </p>
+                            </div>
+                            <div v-else>
+                                <p class="bio">
+                                    {{ error }}
+                                </p>
+                            </div>
+                            
+                            <div class="stats-box">
+                                <!-- Repos -->
+                                <div class="repos">
+                                    <p class="gh-repos">Repos</p>
+                                    <p class=" profile-numbers">{{ githubUser.public_repos }}</p>
+                                </div>
+
+                                <!-- Followers -->
+                                <div class="followers">
+                                    <p class="gh-followers">Followers</p>
+                                    <p class="profile-numbers">{{ githubUser.followers }}</p>
+                                </div>
+
+                                <!-- Following -->
+                                <div class="following">
+                                    <p class="gh-following">Following</p>
+                                    <p class="profile-numbers">{{ githubUser.following }}</p>
+                                </div>
+                            </div>
+                            </div>
+
+                        <!-- Profile Links -->
+                        <div class="gh-links">
+                            <ul> 
+                                <div  v-bind:style="{ color: greyColor}">
+                                    <div v-if="githubUser.location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <li>{{ githubUser.location }} </li>
+                                    </div>
+                                    <div v-else>
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <li>{{ error }} </li>
+                                    </div>
+                                </div> 
+                                <div  v-bind:style="{ color: greyColor}">
+                                    <div v-if="githubUser.twitter_username">
+                                        <i class="fab fa-twitter"></i>
+                                        <li>@{{ githubUser.twitter_username }}</li>
+                                    </div>
+                                    <div v-else>
+                                        <i class="fab fa-twitter"></i>
+                                        <li>{{ error }} </li>
+                                    </div>
+                                </div> 
+
+                                <div  v-bind:style="{ color: greyColor}">
+                                    <div v-if="githubUser.blog">
+                                        <i class="fas fa-link"></i>
+                                        <li><a :href="githubUser.blog">{{ githubUser.blog }}</a></li>
+                                    </div>
+                                    <div v-else>
+                                    <i class="fas fa-link"></i>
+                                        <li>{{ error }} </li>
+                                    </div>
+                                </div> 
+
+                                <div  v-bind:style="{ color: greyColor}">
+                                    <div v-if="githubUser.html_url">
+                                        <i class="fas fa-building"></i>
+                                            <li><a :href="githubUser.html_url"> {{ githubUser.html_url }}</a></li>
+                                    </div>
+                                    <div v-else>
+                                    <i class="fas fa-building"></i>
+                                            <li>{{ error }} </li>
+                                    </div>
+                                </div> 
+                            </ul>
+                        </div>
+                </div>
+             </div>
+           </div>
         
-        <p> Howdy!!! Enter your username above</p>
     </main>
-  
   </div>
 </template>
 
@@ -120,9 +120,12 @@ export default {
   name: 'ApidataPage',
  data() {
    return {
+    showUI: false,
     loading: true,
     greyColor: '#CBD5E1',
+    errorResponse: '',
      githubUser: {},
+     searchprofile: '',
      placeholder: 'Search Github username',
     loadingImage: require('../assets/transgif.gif'),
     error: 'Not available',
@@ -130,12 +133,31 @@ export default {
  },
   methods: {
     async githubApi() {
-      const response = await fetch(`https://api.github.com/users/${this.searchprofile}`)
-      const data = await response.json()
-      console.log(data)
-      this.loading = false
-      return this.githubUser = data
+        try {
+             const response = await fetch(`https://api.github.com/users/${this.searchprofile}`)
+            const data = await response.json()
+              if (!response.ok) {
+                throw new Error(response.status);
+              }
+                        // console.log(data)
+            this.showUI = true
+            this.loading = false
+            return this.githubUser = data
+        } catch(e) {
+             console.log('Oops! User Not Found');
+             this.errorResponse = 'Oops! User Not Found'
+        }
+     
     },
+    // Check if user has typed into the input field
+    checkEmptyField() {
+        if(!this.searchprofile.length) {
+                alert("Oops!!! You have to type into the input field :)")
+        } else {
+            // If user has typed into the input field then, make the request
+            this.githubApi();
+        }
+    }
   },
   computed: {
       timeStamp() {
